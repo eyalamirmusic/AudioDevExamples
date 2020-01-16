@@ -9,6 +9,13 @@
  * to each incoming note
  * */
 
+//#undef JucePlugin_IsMidiEffect
+//#if JucePlugin_Build_AU
+//#define JucePlugin_IsMidiEffect 1
+//#else
+//#define JucePlugin_IsMidiEffect 0
+//#endif
+
 class MidiEffectAudioProcessor  : public AudioProcessor
 {
 public:
