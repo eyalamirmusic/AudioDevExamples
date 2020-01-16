@@ -3,6 +3,8 @@
 <JUCERPROJECT id="YcUtI7" name="ConsoleToot" projectType="consoleapp" jucerVersion="5.4.5">
   <MAINGROUP id="L7pnce" name="ConsoleToot">
     <GROUP id="{7061433D-FDA0-668C-E304-76C04BC857C5}" name="Source">
+      <FILE id="PpvdiA" name="AudioCallback.h" compile="0" resource="0" file="Source/AudioCallback.h"/>
+      <FILE id="MuD9Od" name="ConsoleToot.h" compile="0" resource="0" file="Source/ConsoleToot.h"/>
       <FILE id="R8HzUl" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
