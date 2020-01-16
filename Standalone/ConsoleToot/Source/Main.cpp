@@ -24,7 +24,7 @@ public:
 
     void audioDeviceAboutToStart(AudioIODevice* device) override
     {
-        phase = 0.0;
+        phase = 0.f;
         sampleRate = (float) device->getCurrentSampleRate();
     }
 
@@ -33,8 +33,8 @@ public:
 private:
     float freq = 440.f;
     float gain = 0.1f;
-    float phase = 0.0;
-    float sampleRate = 0.0;
+    float phase = 0.f;
+    float sampleRate = 0.f;
 };
 
 int main(int argc, char* argv[])
