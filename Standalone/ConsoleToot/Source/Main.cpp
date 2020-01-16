@@ -1,53 +1,64 @@
-#include "AudioCallback.h"
+#include "JuceHeader.h"
 
-//A class for testing audio streaming.
-//To initialize one of those, just create it on the stack, and pass any
-//object that inherits from AudioIODeviceCallback to it:
-
-namespace ConsoleTootConsts
-{
-//You can change this const for a different playing time:
-constexpr int playbackTime = 2000;
-}
-
-class ConsoleToot
+class MyCallback : public AudioIODeviceCallback
 {
 public:
-    explicit ConsoleToot(AudioIODeviceCallback& cb)
+    void audioDeviceIOCallback(const float** inputChannelData,
+                               int numInputChannels,
+                               float** outputChannelData,
+                               int numOutputChannels,
+                               int numSamples) override
     {
-        String err = deviceManager.initialiseWithDefaultDevices(0, 2);
+        for (int i = 0; i < numSamples; ++i)
+        {
+            float s = gain * sin(phase);
 
-        if (err.isEmpty())
-            triggerAudioCallback(cb);
-        else
-            std::cout << "could not open device : " << err << "\n";
+            for (int j = 0; j < numOutputChannels; ++j)
+            {
+                outputChannelData[j][i] = s;
+            }
+
+            phase += (freq / sampleRate) * juce::MathConstants<float>::twoPi;
+        }
     }
+
+    void audioDeviceAboutToStart(AudioIODevice* device) override
+    {
+        phase = 0.f;
+        sampleRate = (float) device->getCurrentSampleRate();
+    }
+
+    void audioDeviceStopped() override {}
 
 private:
-    void triggerAudioCallback(AudioIODeviceCallback& cb)
-    {
-        std::cout << "device opened : " << getDeviceName() << "\n";
-        deviceManager.addAudioCallback(&cb);
-
-        // keep the program running so the audio has a chance to play:
-        Thread::sleep(ConsoleTootConsts::playbackTime);
-        std::cout << "closing device...\n";
-    }
-
-    const String& getDeviceName()
-    {
-        return deviceManager.getCurrentAudioDevice()->getName();
-    }
-
-    // not used for "GUI" in this case,
-    // just for initing and shutting down the MessageManager
-    ScopedJuceInitialiser_GUI gui_init;
-
-    AudioDeviceManager deviceManager;
+    float freq = 440.f;
+    float gain = 0.1f;
+    float phase = 0.f;
+    float sampleRate = 0.f;
 };
 
 int main(int argc, char* argv[])
 {
-    SineWaveCallback audioCallback;
-    ConsoleToot console(audioCallback);
+    // not used for "GUI" in this case,
+    // just for initing and shutting down the MessageManager
+    ScopedJuceInitialiser_GUI gui_init;
+    AudioDeviceManager aman;
+
+    String err = aman.initialiseWithDefaultDevices(0, 2);
+
+    if (err.isEmpty())
+    {
+        std::cout << "device opened : " << aman.getCurrentAudioDevice()->getName()
+                  << "\n";
+        MyCallback cb;
+        aman.addAudioCallback(&cb);
+
+        // keep the program running so the audio has a chance to play:
+        Thread::sleep(2000);
+        std::cout << "closing device...\n";
+    }
+    else
+        std::cout << "could not open device : " << err << "\n";
+
+    return 0;
 }
