@@ -46,6 +46,7 @@ public:
     void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
+
     Processors processors;
     AudioProcessorValueTreeState state {
         *this, nullptr, "GainProcessors", processors.getLayout()};

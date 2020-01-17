@@ -1,10 +1,6 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-std::unique_ptr<AudioParameterFloat> createParam(String name)
-{
-    return std::make_unique<AudioParameterFloat>(name, name, 0.f, 1.f, 0.5f);
-}
 //==============================================================================
 DynamicParametersAudioProcessor::DynamicParametersAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
