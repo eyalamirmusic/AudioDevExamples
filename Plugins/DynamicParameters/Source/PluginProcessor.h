@@ -3,6 +3,14 @@
 #include "JuceHeader.h"
 #include "CustomProcessor.h"
 
+
+//This process class does very little.
+//All it does is initialize the Processors class, and the
+//AudioProcessorValueTreeState class, which grabs the parameters from the Processors.
+//
+//Later, it's forwarding the processBlock call to the Processors class
+//
+//Look at CustomProcessor.h for more info:
 //==============================================================================
 /**
 */

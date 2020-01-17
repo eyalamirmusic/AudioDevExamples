@@ -4,6 +4,8 @@
 
 using Layout = AudioProcessorValueTreeState::ParameterLayout;
 
+//A parameter class, meant to help the processor with creating and caching
+//The parameters, and hand them as a ParameterLayout for use by the plugin
 struct ProcessorParams
 {
     void addParams(Layout& layout,
