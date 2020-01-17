@@ -23,6 +23,8 @@ struct ProcessorParams
     AudioParameterBool* bypass = nullptr;
 };
 
+//A simple processor class, only applying simple gain, and possibly bypassed
+//Reads the value from the cached parameter pointers in the ProcessorParams class
 struct Processor
 {
     void process(AudioBuffer<float>& buffer)
@@ -34,6 +36,10 @@ struct Processor
     ProcessorParams params;
 };
 
+//A simple chainer class, providing an interface for the processor to get the
+//parameter layout from all processors combined, and later call process()
+//on all of them:
+
 struct Processors
 {
     Layout getLayout()
@@ -44,13 +50,17 @@ struct Processors
 
         for (auto& processor: processors)
         {
-            String name = "Processor " + String(index++) + " ";
-            processor.params.addParams(layout, name);
+            //Creates the processor name using some prefix and it's index
+            String processorName = "Processor " + String(index++) + " ";
+
+            //Asks each processor to add it's own parameters
+            processor.params.addParams(layout, processorName);
         }
 
         return layout;
     }
 
+    //Simple forwarding to the actual processing functions
     void process(AudioBuffer<float>& buffer)
     {
         for (auto& processor: processors)
