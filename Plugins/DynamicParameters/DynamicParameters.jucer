@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="gnQAQX" name="DynamicParameters" projectType="audioplug"
-              jucerVersion="5.4.5">
+              jucerVersion="5.4.5" pluginChannelConfigs="{1,2},{1,2},{0,2}">
   <MAINGROUP id="JGYM5r" name="DynamicParameters">
     <GROUP id="{E95A827D-B94C-283A-59F6-3420AAA6532D}" name="Source">
       <FILE id="bZ2xGK" name="ParameterHelpers.h" compile="0" resource="0"
