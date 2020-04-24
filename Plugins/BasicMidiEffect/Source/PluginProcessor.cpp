@@ -23,6 +23,8 @@ const String MidiEffectAudioProcessor::getName() const
 
 bool MidiEffectAudioProcessor::acceptsMidi() const
 {
+    DBG ("Accepts MIDI:" << JucePlugin_WantsMidiInput);
+
    #if JucePlugin_WantsMidiInput
     return true;
    #else
@@ -32,6 +34,8 @@ bool MidiEffectAudioProcessor::acceptsMidi() const
 
 bool MidiEffectAudioProcessor::producesMidi() const
 {
+    DBG ("Produces MIDI:" << JucePlugin_ProducesMidiOutput);
+
    #if JucePlugin_ProducesMidiOutput
     return true;
    #else

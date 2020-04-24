@@ -1,0 +1,2 @@
+add_subdirectory(LoadingSVG)
+add_subdirectory(ConsoleToot)

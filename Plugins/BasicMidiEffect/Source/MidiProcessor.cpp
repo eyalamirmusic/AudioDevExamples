@@ -11,21 +11,16 @@ void MidiProcessor::process(MidiBuffer& midiMessages)
 
 void MidiProcessor::processMidiInput(const MidiBuffer& midiMessages)
 {
-    MidiBuffer::Iterator it(midiMessages);
-    MidiMessage currentMessage;
-    int samplePos;
-
-    while (it.getNextEvent(currentMessage, samplePos))
-    {
-        if (currentMessage.isNoteOnOrOff())
-            addTransposedNote(currentMessage, samplePos);
-
-        processedBuffer.addEvent(currentMessage, samplePos);
-    }
+    //new JUCE 6 way of iterating through the midi buffer:
+    for (auto message: midiMessages)
+        addTransposedNote(message.getMessage(), message.samplePosition);
 }
 
 void MidiProcessor::addTransposedNote(MidiMessage messageToTranspose, int samplePos)
 {
+    //Adds the original event first
+    processedBuffer.addEvent(messageToTranspose, samplePos);
+
     auto oldNoteNum = messageToTranspose.getNoteNumber();
     messageToTranspose.setNoteNumber(oldNoteNum + interval);
 
