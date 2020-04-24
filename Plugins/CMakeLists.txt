@@ -1,1 +1,2 @@
 add_subdirectory(BasicMidiEffect)
+add_subdirectory(DynamicParameters)

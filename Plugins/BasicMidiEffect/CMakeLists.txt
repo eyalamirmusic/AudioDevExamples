@@ -7,7 +7,7 @@ juce_add_plugin("${BaseTargetName}"
         # ICON_BIG ...                              # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
         # ICON_SMALL ...
         COMPANY_NAME "AudioDevExamples"
-        IS_SYNTH TRUE
+        IS_SYNTH FALSE
         NEEDS_MIDI_INPUT TRUE
         NEEDS_MIDI_OUTPUT TRUE
         IS_MIDI_EFFECT FALSE
@@ -28,6 +28,7 @@ target_sources(${BaseTargetName} PRIVATE
 target_compile_definitions(${BaseTargetName} PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
-        JUCE_VST3_CAN_REPLACE_VST2=0)
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JucePlugin_PreferredChannelConfigurations={1,2},{2,2})
 
 target_link_libraries(${BaseTargetName} PRIVATE juce::juce_audio_utils)

@@ -22,12 +22,12 @@ juce_generate_juce_header(${BaseTargetName})
 
 target_sources(${BaseTargetName} PRIVATE
         Source/PluginProcessor.cpp
-        Source/PluginEditor.cpp
-        Source/MidiProcessor.cpp)
+        Source/PluginEditor.cpp)
 
 target_compile_definitions(${BaseTargetName} PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
-        JUCE_VST3_CAN_REPLACE_VST2=0)
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JucePlugin_PreferredChannelConfigurations={1,2},{2,2})
 
 target_link_libraries(${BaseTargetName} PRIVATE juce::juce_audio_utils)
