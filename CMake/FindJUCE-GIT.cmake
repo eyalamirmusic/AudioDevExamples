@@ -9,7 +9,7 @@ macro(update_juce_from_git)
             GIT_REPOSITORY "https://github.com/juce-framework/juce"
             GIT_SHALLOW TRUE
             GIT_PROGRESS TRUE
-            GIT_TAG "origin/juce6")
+            GIT_TAG "origin/develop")
 
     FetchContent_GetProperties(juce)
 
