@@ -15,24 +15,28 @@ public:
 class SVGDisplayer : public Component
 {
 public:
-    explicit SVGDisplayer(const File& fileToLoad)
+    explicit SVGDisplayer(const File& fileToLoad, RectanglePlacement& placementToUse)
+        : placement(placementToUse)
     {
         image = Drawable::createFromImageFile(fileToLoad);
 
-        if (image != nullptr)
-            addAndMakeVisible(*image);
-        else
+        if (image == nullptr)
             addAndMakeVisible(invalidImageLabel);
+    }
+
+    void paint(Graphics& g) override
+    {
+        if (image != nullptr)
+            image->drawWithin(g, getLocalBounds().toFloat(), placement, 1.f);
     }
 
     void resized() override
     {
-        if (image != nullptr)
-            image->setBounds(getLocalBounds());
-        else
+        if (image == nullptr)
             invalidImageLabel.setBounds(getLocalBounds());
     }
 
     InvalidImageLabel invalidImageLabel;
     std::unique_ptr<Drawable> image;
+    RectanglePlacement& placement;
 };
